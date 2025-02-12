@@ -26,7 +26,7 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
-    position: fixed; 
+    /*position: fixed;*/
     bottom: 0;
     width: 100%;
 }
@@ -60,7 +60,7 @@ form button:hover {
     background-color: #555;
 }
 
-/* Стили для кнопки "Ещё" */
+
 .load-more-container {
     text-align: center;
     margin-top: 20px;
@@ -111,20 +111,20 @@ form button:hover {
     color: #cc0000;
     margin-bottom: 5px;
     opacity: 1;
-    transition: opacity 2s ease-in-out; /* Плавное изменение непрозрачности */
+    transition: opacity 2s ease-in-out;
 }
 
 .flashes li.fade-out {
-    opacity: 0; /* Полностью прозрачный */
+    opacity: 0; 
 }
-/* Контейнер для всех инициатив */
+
 .initiatives-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Карточка инициативы */
+
 .initiative-card {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -139,35 +139,35 @@ form button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Заголовок инициативы */
+
 .initiative-title {
     font-size: 24px;
     margin-bottom: 10px;
     color: #333;
 }
 
-/* Описание инициативы */
+
 .initiative-content {
     font-size: 16px;
     color: #555;
     margin-bottom: 15px;
 }
 
-/* Оценка инициативы */
+
 .initiative-score {
     font-size: 18px;
     color: green;
     font-weight: bold;
 }
 
-/* Контейнер для кнопок */
+
 .initiative-actions {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
-/* Кнопки голосования и удаления */
+
 .vote-btn, .delete-btn {
     padding: 8px 12px;
     border: none;
@@ -180,7 +180,7 @@ form button:hover {
 }
 
 .vote-btn {
-    background-color: #28a745; /* Зеленый цвет для "За" */
+    background-color: #28a745; 
 }
 
 .vote-btn:hover {
@@ -188,14 +188,14 @@ form button:hover {
 }
 
 .delete-btn {
-    background-color: #dc3545; /* Красный цвет для "Удалить" */
+    background-color: #dc3545; 
 }
 
 .delete-btn:hover {
     background-color: #c82333;
 }
 
-/* Кнопка "Ещё" */
+
 .load-more-container {
     margin-top: 20px;
     text-align: center;
@@ -217,7 +217,6 @@ form button:hover {
     background-color: #0056b3;
 }
 
-/* Кнопка "Создать инициативу" */
 .create-initiative-container {
     margin-top: 20px;
     text-align: center;
