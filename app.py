@@ -229,14 +229,23 @@ def delete_initiative(initiative_id):
     conn, cur = db_connect()
     try:
         if current_app.config['DB_TYPE'] == 'postgres':
-            cur.execute("DELETE FROM initiatives WHERE id = %s AND user_id = %s", (initiative_id, session['user_id']))
+            cur.execute("SELECT * FROM initiatives WHERE id = %s", (initiative_id,))
         else:
-            cur.execute("DELETE FROM initiatives WHERE id = ? AND user_id = ?", (initiative_id, session['user_id']))
+            cur.execute("SELECT * FROM initiatives WHERE id = ?", (initiative_id,))
+        initiative = cur.fetchone()
 
-        if cur.rowcount == 0:
-            flash('Инициатива не найдена или у вас нет прав для её удаления')
-        else:
+        if not initiative:
+            flash('Инициатива не найдена')
+            return redirect('/')
+
+        if session.get('role') == 'admin' or initiative['user_id'] == session['user_id']:
+            if current_app.config['DB_TYPE'] == 'postgres':
+                cur.execute("DELETE FROM initiatives WHERE id = %s", (initiative_id,))
+            else:
+                cur.execute("DELETE FROM initiatives WHERE id = ?", (initiative_id,))
             flash('Инициатива удалена')
+        else:
+            flash('У вас нет прав для удаления этой инициативы')
     except Exception as e:
         logger.error(f"Ошибка при удалении инициативы: {e}")
         flash('Произошла ошибка при удалении инициативы')
