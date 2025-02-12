@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Создать инициативу</h2>
+<form method="POST">
+    <label for="title">Заголовок:</label>
+    <input type="text" id="title" name="title" required>
+    <label for="content">Описание:</label>
+    <textarea id="content" name="content" required></textarea>
+    <button type="submit">Создать</button>
+</form>
+{% endblock %}

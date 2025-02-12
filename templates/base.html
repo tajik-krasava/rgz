@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<script>
+    function fadeOutFlashMessages() {
+    const flashes = document.querySelectorAll('.flashes li');
+    flashes.forEach(flash => {
+            setTimeout(() => {
+                flash.classList.add('fade-out'); 
+            }, 3000); // 5000 миллисекунд = 5 секунд
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', fadeOutFlashMessages);
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инициативы</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Инициативы</h1>
+        <ul class="flashes">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+      
+        <nav>
+            <a href="{{ url_for('index') }}">Главная</a>
+            {% if 'user_id' in session %}
+                {% if session['role'] == 'admin' %}
+                    <a href="{{ url_for('admin_users') }}">Управление пользователями</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Выйти</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Войти</a>
+                <a href="{{ url_for('register') }}">Регистрация</a>
+            {% endif %}
+          
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>Студент: Богачев Игорь Андреевич, Группа: ФБИ-23</p>
+        
+        {% if 'user_id' in session %}
+        <div class="create-initiative-container">
+            <a href="{{ url_for('create_initiative') }}" class="create-initiative-btn">Создать инициативу</a>
+        </div>
+        {% endif %}
+        {% if 'user_id' in session %}
+        <div class="account-actions">
+            <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить свой аккаунт? Это действие необратимо.');">
+                <button type="submit" class="delete-account-btn">Удалить аккаунт</button>
+            </form>
+        </div>
+        {% endif %}
+    </footer>
+</body>
+</html>

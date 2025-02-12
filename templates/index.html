@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Список инициатив</h2>
+
+<div class="initiatives-container">
+    {% for initiative in initiatives %}
+        <div class="initiative-card">
+            <h3 class="initiative-title">{{ initiative.title }}</h3>
+            <p class="initiative-content">{{ initiative.content }}</p>
+            <p class="initiative-score">Оценка: {{ initiative.score }}</p>
+            {% if 'user_id' in session %}
+                <div class="initiative-actions">
+                    <a href="{{ url_for('vote', initiative_id=initiative.id, vote=1) }}" class="vote-btn">За</a>
+                    <a href="{{ url_for('vote', initiative_id=initiative.id, vote=0) }}" class="vote-btn">Против</a>
+                    {% if session['user_id'] == initiative.user_id %}
+                        <a href="{{ url_for('delete_initiative', initiative_id=initiative.id) }}" class="delete-btn">Удалить</a>
+                    {% endif %}
+                    {% if session['role'] == 'admin' %}
+                    <a href="{{ url_for('delete_initiative', initiative_id=initiative.id) }}" class="delete-btn">Удалить</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Кнопка для загрузки дополнительных инициатив -->
+{% if initiatives %}
+    <div class="load-more-container">
+        <a href="{{ url_for('index', offset=offset + 20) }}" class="load-more-btn">Ещё</a>
+    </div>
+{% else %}
+    <p>Больше инициатив нет.</p>
+{% endif %}
+
+
+{% endblock %}
